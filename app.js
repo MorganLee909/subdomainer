@@ -4,9 +4,9 @@ const https = require("https");
 const fs = require("fs");
 
 const app = express()
-    .use(vhost("leemorgan.io", require("../leemorgan-io/app.js")))
-    .use(vhost("www.leemorgan.io", require("../leemorgan-io/app.js")))
-    .use(vhost("something.leemorgan.io", require("../leemorgan-io/app.js")))
+    .use(vhost("leemorgan.io", require("../lee-morgan-site/app.js")))
+    .use(vhost("www.leemorgan.io", require("../lee-morgan-site/app.js")))
+    .use(vhost("something.leemorgan.io", require("../lee-morgan-site/app.js")))
     .use((req, res, next)=>{
         if(req.secure === true){
             next();
