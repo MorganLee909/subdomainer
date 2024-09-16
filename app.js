@@ -1,12 +1,13 @@
-const express = require("express");
-const vhost = require("vhost");
-const https = require("https");
-const fs = require("fs");
+import express from "express";
+import vhost from "vhost";
+import https from "https";
+import fs from "fs";
+
+import example from "../example/app.js";
 
 const app = express()
-    .use(vhost("leemorgan.io", require("../lee-morgan-site/app.js")))
-    .use(vhost("www.leemorgan.io", require("../lee-morgan-site/app.js")))
-    .use(vhost("something.leemorgan.io", require("../lee-morgan-site/app.js")))
+    .use(vhost("example.com", example))
+    .use(vhost("www.example.com", example))
     .use((req, res, next)=>{
         if(req.secure === true){
             next();
@@ -16,8 +17,8 @@ const app = express()
     });
 
 let httpsServer = https.createServer({
-    key: fs.readFileSync("/etc/letsencrypt/live/leemorgan.io/privkey.pem", "utf8"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/leemorgan.io/fullchain.pem", "utf8")
+    key: fs.readFileSync("/etc/letsencrypt/live/example.com/privkey.pem", "utf8"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/example.com/fullchain.pem", "utf8")
 }, app);
 
 httpsServer.listen(process.env.HTTPS_PORT);
