@@ -21,5 +21,7 @@ let httpsServer = https.createServer({
     cert: fs.readFileSync("/etc/letsencrypt/live/example.com/fullchain.pem", "utf8")
 }, app);
 
+app.get("/.well-known/acme-challenge/:file", (req, res)=>{res.sendFile(`${__dirname}/.well-known/acme-challenge/${req.params.files}`)});
+
 httpsServer.listen(process.env.HTTPS_PORT);
 app.listen(process.env.PORT);
