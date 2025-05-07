@@ -16,7 +16,7 @@ import fs from "fs";
 import example from "../example/app.js";
 
 const app = express()
-    .app.get("/.well-known/acme-challenge/:file", (req, res)=>{res.sendFile(`${import.meta.dirname}/.well-known/acme-challenge/${req.params.file}`)})
+    .get("/.well-known/acme-challenge/:file", (req, res)=>{res.sendFile(`${import.meta.dirname}/.well-known/acme-challenge/${req.params.file}`)})
     .use(vhost("example.com", example))
     .use(vhost("www.example.com", example))
     .use((req, res, next)=>{
